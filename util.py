@@ -53,8 +53,8 @@ def conditional_res_test(arr, condition):
         stress_rv[v_rvpos] += 1
         stress[v_pos] += 1
     report += '## ' + condition + ' ##' + '\n'
-    report += 'stress: ' + str(stress) + '\n rate = ' + str(round(max(stress)/sum(stress),2)) + '\n'
-    report += 'stress_rv: ' + str(stress_rv) + '\n rate_rv = ' + str(round(max(stress_rv)/sum(stress_rv),2)) + '\n'
+    report += 'stress: ' + str(stress) + '\n top_rate = ' + str(round(max(stress)/sum(stress),2)) + '\n'
+    report += 'stress_rv: ' + str(stress_rv) + '\n top_rate_rv = ' + str(round(max(stress_rv)/sum(stress_rv),2)) + '\n'
     report += '---------' + '\n'
 
     return report
