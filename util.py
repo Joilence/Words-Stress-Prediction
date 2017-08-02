@@ -42,3 +42,19 @@ def line_parser(line):
         if re.match('[0-2]$', u):
             data['v_num'] += 1;
     return data
+
+def conditional_res_test(arr, condition):
+    report = ''
+    stress_rv = [0, 0, 0, 0, 0, 0]
+    stress = [0, 0, 0, 0, 0, 0]
+    for s in arr:
+        v_rvpos = line_parser(s)['rvpos']
+        v_pos = line_parser(s)['pos']
+        stress_rv[v_rvpos] += 1
+        stress[v_pos] += 1
+    report += '## ' + condition + ' ##' + '\n'
+    report += 'stress: ' + str(stress) + '\n rate = ' + str(round(max(stress)/sum(stress),2)) + '\n'
+    report += 'stress_rv: ' + str(stress_rv) + '\n rate_rv = ' + str(round(max(stress_rv)/sum(stress_rv),2)) + '\n'
+    report += '---------' + '\n'
+
+    return report
