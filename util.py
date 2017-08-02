@@ -1,3 +1,4 @@
+import re
 def line_parser(line):
     data = {}
 
@@ -36,4 +37,8 @@ def line_parser(line):
     rvpos = sec_rvpos if pri_rvpos == -1 else pri_rvpos
     data['rvpos'] = rvpos
 
+    data['v_num'] = 0;
+    for u in data['ph']:
+        if re.match('[0-2]$', u):
+            data['v_num'] += 1;
     return data
