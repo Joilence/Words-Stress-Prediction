@@ -41,6 +41,9 @@ def line_parser(line):
     for u in data['ph']:
         if re.match('[0-2]$', u):
             data['v_num'] += 1;
+
+    data['vr'] = round(len(data['v'])/len(data['ph']), 2)
+
     return data
 
 def conditional_res_test(arr, condition):
