@@ -17,7 +17,7 @@ def isConsonant(u):
 def line_parser(line, isTest):
     data = {}
     data['wd'] = line.split(':')[0]
-    data['length'] = data['wd'].length
+    data['len'] = len(data['wd'])
     #data['prefix_2'] = data['wd'][0:1]
     data['prefix_3'] = data['wd'][0:2]
     data['prefix_4'] = data['wd'][0:3]
