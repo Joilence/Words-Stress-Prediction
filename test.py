@@ -8,3 +8,7 @@ submission.train(training_data, classifier_path)
 test_data = helper.read_data('./asset/tiny_test.txt')
 prediction = submission.test(test_data, classifier_path)
 print(prediction)
+
+from sklearn.metrics import f1_score
+ground_truth = [1, 1, 2, 1]
+print(f1_score(ground_truth, prediction, average='micro'))

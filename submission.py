@@ -19,11 +19,11 @@ def line_parser(line, isTest):
     data['wd'] = line.split(':')[0]
     data['len'] = len(data['wd'])
     #data['prefix_2'] = data['wd'][0:1]
-    data['prefix_3'] = data['wd'][0:2]
+    #data['prefix_3'] = data['wd'][0:2]
     data['prefix_4'] = data['wd'][0:3]
     
     #data['suffix_2'] = data['wd'][-2:]
-    data['suffix_3'] = data['wd'][-3:]
+    #data['suffix_3'] = data['wd'][-3:]
     data['suffix_4'] = data['wd'][-4:]
     
     data['ph'] = line.split(':')[1]
@@ -40,12 +40,14 @@ def line_parser(line, isTest):
                 data[u] = index
                 index += 1
         else:
-             if re.match('^[A-Za-z]+$', u):
+             if re.match('^[A-Za-z]+[0-9]$', u):
+                #print(u)
                 data['v_num'] += 1
                 data[u[:-1]] = index
                 if u.endswith('1'):
                     temp = index
                 index += 1
+    #print(temp)
     data.pop('ph')
     data.pop('wd')
     if True == isTest:
@@ -85,4 +87,5 @@ def test(test_data, classifier_file):# do not change the heading of the function
     
     features = obj['vectorizer'].transform(features)
     result = obj['nb'].predict(features)
+    result = obj['encoder'].inverse_transform(result)
     return result
