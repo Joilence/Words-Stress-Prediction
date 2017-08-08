@@ -88,4 +88,4 @@ def test(test_data, classifier_file):# do not change the heading of the function
     features = obj['vectorizer'].transform(features)
     result = obj['nb'].predict(features)
     result = obj['encoder'].inverse_transform(result)
-    return result
+    return result.tolist()
