@@ -89,3 +89,4 @@ def test(test_data, classifier_file):# do not change the heading of the function
     result = obj['nb'].predict(features)
     result = obj['encoder'].inverse_transform(result)
     return result.tolist()
+# first trial : 0.7670
