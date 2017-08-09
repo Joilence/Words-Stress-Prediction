@@ -13,7 +13,7 @@ from sklearn.metrics import f1_score
 ##### params
 training_data = helper.read_data('./asset/training_data.txt')
 classifier_path = './asset/classifier.dat'
-n_fold = 10
+n_fold = 5
 
 def transform_training_data(data):
     after_transformed = []
