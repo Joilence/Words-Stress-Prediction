@@ -1,6 +1,8 @@
 from sklearn.naive_bayes import MultinomialNB,BernoulliNB
 from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_extraction import DictVectorizer
+from sklearn import svm
+from sklearn.neighbors import KNeighborsClassifier
 import re
 import pickle
 
@@ -20,11 +22,11 @@ def line_parser(line, isTest):
     data['len'] = len(data['wd'])
     #data['prefix_2'] = data['wd'][0:1]
     #data['prefix_3'] = data['wd'][0:2]
-    data['prefix_4'] = data['wd'][0:3]
+    #data['prefix_4'] = data['wd'][0:3]
     
     #data['suffix_2'] = data['wd'][-2:]
     #data['suffix_3'] = data['wd'][-3:]
-    data['suffix_4'] = data['wd'][-4:]
+    #data['suffix_4'] = data['wd'][-4:]
     
     data['ph'] = line.split(':')[1]
 
@@ -68,8 +70,10 @@ def train(training_data, classifier_file):# do not change the heading of the fun
     x = vectorizer.fit_transform(x)
     y = encoder.fit_transform(y)
 
-    nb = MultinomialNB(alpha=2)
-    nb.fit(x, y);
+    #nb = MultinomialNB(alpha=2)
+    #nb = svm.SVC()
+    nb = KNeighborsClassifier()
+    nb.fit(x, y)
     f = open(classifier_file, 'wb')
 
     obj = {'nb':nb, 'encoder':encoder, 'vectorizer':vectorizer}
