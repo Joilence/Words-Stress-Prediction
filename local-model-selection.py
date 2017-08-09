@@ -10,6 +10,11 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.metrics import f1_score
 
+##### params
+training_data = helper.read_data('./asset/training_data.txt')
+classifier_path = './asset/classifier.dat'
+n_fold = 10
+
 def transform_training_data(data):
     after_transformed = []
     non_decimal = re.compile('\d')
@@ -28,12 +33,9 @@ def get_stress(data):
                     break
                 index += 1
     return result
-training_data = helper.read_data('./asset/training_data.txt')
-classifier_path = './asset/classifier.dat'
-training_data = np.array(training_data)
-n_fold = 10
 
 kf = KFold(n_splits = n_fold, shuffle=True)
+training_data = np.array(training_data)
 
 train_error_total = 0
 test_error_total = 0
@@ -56,7 +58,7 @@ for train, test in kf.split(training_data):
     test_score  = f1_score(ground_truth_test, test_prediction, average='micro')
     train_error_total += train_score
     test_error_total += test_score
-    
+
     print('*****************')
     print('traing f1_score : \t{}'.format(train_score))
     print('test   f1_score : \t{}'.format(test_score))
