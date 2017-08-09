@@ -98,7 +98,7 @@ def train(training_data, classifier_file):# do not change the heading of the fun
 
     #nb = MultinomialNB(alpha=2)
     #nb = svm.SVC()
-    nb = RandomForestClassifier(n_estimators=60)
+    nb = RandomForestClassifier(n_estimators=50)
     nb.fit(x, y)
     f = open(classifier_file, 'wb')
 
