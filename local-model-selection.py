@@ -10,6 +10,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.metrics import f1_score
 
+from sklearn.grid_search import GridSearchCV
+
 ##### params
 training_data = helper.read_data('./asset/training_data.txt')
 classifier_path = './asset/classifier.dat'
@@ -42,7 +44,7 @@ test_error_total = 0
 
 for train, test in kf.split(training_data):
     submission.train(training_data[train], classifier_path)
-    
+
     # get correct answer
     ground_truth_train = get_stress(training_data[train])
     ground_truth_test  = get_stress(training_data[test])
@@ -62,6 +64,7 @@ for train, test in kf.split(training_data):
     print('*****************')
     print('traing f1_score : \t{}'.format(train_score))
     print('test   f1_score : \t{}'.format(test_score))
+
 print('===================')
 print('avg. training f1_score :\t{}'.format(train_error_total/n_fold))
 print('avg. testing  f1_score :\t{}'.format(test_error_total/n_fold))
