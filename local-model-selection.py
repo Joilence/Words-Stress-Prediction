@@ -40,16 +40,23 @@ test_error_total = 0
 
 for train, test in kf.split(training_data):
     submission.train(training_data[train], classifier_path)
+    
+    # get correct answer
     ground_truth_train = get_stress(training_data[train])
     ground_truth_test  = get_stress(training_data[test])
+
+    # transform data from training format to test data
     train_x = transform_training_data(training_data[train])
     test_x  = transform_training_data(training_data[test])
+
+    # get prediction
     train_prediction = submission.test(train_x, classifier_path)
     test_prediction  = submission.test(test_x, classifier_path)
     train_score = f1_score(ground_truth_train, train_prediction, average='micro')
     test_score  = f1_score(ground_truth_test, test_prediction, average='micro')
     train_error_total += train_score
     test_error_total += test_score
+    
     print('*****************')
     print('traing f1_score : \t{}'.format(train_score))
     print('test   f1_score : \t{}'.format(test_score))
