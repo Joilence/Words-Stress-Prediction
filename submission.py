@@ -27,9 +27,13 @@ def line_parser(line, isTest):
     #data['suffix_2'] = data['wd'][-2:]
     #data['suffix_3'] = data['wd'][-3:]
     #data['suffix_4'] = data['wd'][-4:]
-    
-    data['ph'] = line.split(':')[1]
 
+    specialSuffix = ['TION', 'BLE', 'ING', 'ED', 'IVE']
+    for s in specialSuffix:
+        if data['wd'].endswith(s):
+            data[s] = 1
+    data['ph'] = line.split(':')[1]
+    data['total_num_ph'] = len(data['ph'].split(' '))
     data['v_num'] = 0
     index = 1
     temp = 0
@@ -39,17 +43,29 @@ def line_parser(line, isTest):
                 continue;
             else:
                 data['v_num'] += 1
-                data[u] = index
+                #data[u] = index
+                data[str(index)] = u
                 index += 1
         else:
              if re.match('^[A-Za-z]+[0-9]$', u):
                 #print(u)
                 data['v_num'] += 1
-                data[u[:-1]] = index
+                #data[u[:-1]] = index
+                data[str(index)] = u[:-1]
                 if u.endswith('1'):
                     temp = index
                 index += 1
     #print(temp)
+    ph = data['ph'].split(' ')
+    index = 1
+    s = 0
+    for i in range(0, len(ph)):
+        if isConsonant(ph[i]) == True:
+            s += 1
+        else:
+            data['consonant' + str(index)] = s
+            index += 1
+            s = 0
     data.pop('ph')
     data.pop('wd')
     if True == isTest:
@@ -88,9 +104,10 @@ def test(test_data, classifier_file):# do not change the heading of the function
     features = []
     for data in test_data:
         features.append(line_parser(data, True))
-    
     features = obj['vectorizer'].transform(features)
     result = obj['nb'].predict(features)
     result = obj['encoder'].inverse_transform(result)
     return result.tolist()
-# first trial : 0.7670
+# first trial  : 0.7670
+# second trial : 0.8540
+# third trial  : 0.8890
